@@ -1,0 +1,22 @@
+body {
+    padding: 1rem;
+    font: 1.2rem "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: #555555;
+    background-image: url('https://images.pexels.com/photos/2834921/pexels-photo-2834921.jpeg?auto=compress&cs=tinysrgb&h=650&w=940');
+    background-size: cover;
+  background-repeat: no-repeat;
+  }
+  
+  .card{
+    background-color: rgba(0,0,0,0.3) !important;
+    color:whitesmoke;
+    min-height: 12rem;
+    max-height: 12rem;
+    border: none;
+    margin-bottom: 0.5rem;
+  }
+
+
+  .row{
+      padding: 1rem 1rem 1rem 1rem;
+  }

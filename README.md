@@ -1,68 +1,192 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# NDSports
 
-## Available Scripts
+## Sobre 
 
-In the project directory, you can run:
+Projeto utilizado para controle de eventos
 
-### `npm start`
+Este projeto consiste de uma API em `nodejs` e uma aplicação web para consumo da mesma, em `React`.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Instalação
 
-### `npm test`
+### Instalar dependências
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Utilize este comando para instalar as dependências do projeto
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Iniciar Servidor
+Dentro da raiz do projeto utilize o seguinte comando para iniciar o servidor
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+#./ndsports/
+cd backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#./ndsports/backend
+node server
+```
 
-### `npm run eject`
+Ao inicializar o servidor a seguinte mensagem será impressa no CLI
+```bash
+$ node server
+Ouvindo porta: 5000
+Conexão mongoose realizada com sucesso!
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Executar App
+Após a inicializar o servidor voltar a pasta raiz, e utilizar o seguinte comando para inicializar o react app
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+#./ndsports/backend
+cd..
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#./ndsports/
+npm start
+```
 
-## Learn More
+Isto inicializará o web app em `localhost:3000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API
 
-### Code Splitting
+Criada para tratar requisições de eventos.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### `Schema`
+```javascript
+    {        
+        name: String,
+        location: String,
+        dateToHappen: Date        
+    }
+```
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### `GET`
 
-### Making a Progressive Web App
+Retorna lista de eventos
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### Request  
+```
+http://localhost:5000/events/
+```
 
-### Advanced Configuration
+#### Response
+```json
+[
+    {
+        "_id": "5e615ee3520f431ea027d71b",
+        "name": "Futiba da EES",
+        "location": "Ufscar",
+        "dateToHappen": "2019-05-27T02:22:49.052Z",
+        "__v": 0
+    },
+    {
+        "_id": "5e6188802a24ec34041fd0b1",
+        "name": "Campeonato de comer Hamburguer",
+        "location": "Seu Burgao",
+        "dateToHappen": "2020-05-12T23:16:37.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "5e6194ca2a24ec34041fd0b2",
+        "name": "Basketinho do Gutinho",
+        "location": "Ipiranga",
+        "dateToHappen": "2020-03-06T00:09:09.537Z",
+        "__v": 0
+    }
+]
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
+### `GET /:id`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Retorna evento específico do :id 
 
-### `npm run build` fails to minify
+#### Request 
+```
+http://localhost:5000/events/:id
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Considerando :id = 5e615ee3520f431ea027d71b
+
+#### Response
+```json
+{
+    "_id": "5e615ee3520f431ea027d71b",
+    "name": "Futiba da EES",
+    "location": "Ufscar",
+    "dateToHappen": "2019-05-27T02:22:49.052Z",
+    "__v": 0
+}
+```
+
+
+### `POST`
+
+Adiciona evento na lista
+
+#### Request
+```
+http://localhost:5000/events/add
+```
+
+
+##### Requestbody
+```json
+{
+	"name": "Basketinho do Gutinho",
+    "location": "Ipiranga",
+    "dateToHappen": "2020-03-06T00:09:09.537Z"
+}
+```    
+
+#### Response
+```json
+"Evento Adicionado."
+```
+
+### `PATCH /:id`
+
+Atualiza dados de determinado evento, especificado pelo :id
+
+#### Request
+```
+http://localhost:5000/events/update/:id
+```
+
+Considerando :id = 5e6194ca2a24ec34041fd0b2
+
+##### Requestbody
+```json
+{    
+    "name": "Volêi FACENS",
+    "location": "FACENS",
+    "dateToHappen": "2019-05-27T02:22:49.052Z"    
+}
+
+#### Response
+```json
+"Evento: n atualizado."
+```
+*Sendo n o número de documentos atualizados*
+
+
+
+### `DELETE`
+
+Remove um evento da lista
+
+#### Request
+```
+http://localhost:5000/events/:id
+```
+
+Considerando :id = 5e6194ca2a24ec34041fd0b2
+
+#### Response
+```json
+"Deletado com sucesso"
+```

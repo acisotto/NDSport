@@ -29,7 +29,7 @@ export default class CreateEvent extends Component {
     }
 
     onChangeDate(e) {
-        this.setState({ date: e });
+        this.setState({ dateToHappen: e });
     }
 
     onSubmit(e) {
